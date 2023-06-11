@@ -9,4 +9,8 @@ const phoneNumberFormat = (number: number | string) => {
   }
 };
 
-export { phoneNumberFormat };
+const dateTimeFormat = (date: Date = new Date(), locale = "ko") => {
+  return date.toLocaleDateString(locale) + date.toLocaleTimeString(locale);
+};
+
+export { phoneNumberFormat, dateTimeFormat };
