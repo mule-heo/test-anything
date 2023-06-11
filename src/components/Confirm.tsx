@@ -1,20 +1,27 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useAppSelector, useAppDispatch } from "../redux/hooks";
+import { dateTimeFormat } from "../utils/format";
+import "./confirm.css";
 
 function Confirm() {
+  const number = useAppSelector((state) => state.phone.value);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   return (
-    <>
-      <div>confirm</div>
-      <nav>
+    <div className="confirm-container">
+      <div className="confirm-wrapper">
         <ul>
-          <li>
-            <Link to={`../result`}>확인</Link>
-          </li>
-          <li>
-            <Link to={`../input`}>취소</Link>
-          </li>
+          <li>현재 대기 인원 : redux state로 추가하기</li>
+          <li>현재 시각 : {dateTimeFormat(undefined, "ko")}</li>
+          <li>전화번호 : {number}</li>
         </ul>
-      </nav>
-    </>
+      </div>
+      <div className="buttons">
+        <button onClick={() => navigate("/result")}>확인</button>
+        <button onClick={() => navigate("/input")}>취소</button>
+      </div>
+    </div>
   );
 }
 
