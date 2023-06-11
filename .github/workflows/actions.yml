@@ -1,0 +1,13 @@
+name: learn-github-actions # Actions 탭에 노출될 이름
+run-name: ${{ github.actor }} is learning GitHub Actions # workflow 이름
+on: [push]
+jobs:
+  check-bats-version: # 이 이름으로 job 정의
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3 # 다른 브랜치로 checkout
+      - uses: actions/setup-node@v3 # node 환경 구성
+        with:
+          node-version: "14"
+      - run: npm install -g bats # run : 터미널 명령어
+      - run: bats -v
