@@ -1,5 +1,5 @@
 name: learn-github-actions # Actions 탭에 노출될 이름
-run-name: ${{ github.actor }}\'s test # workflow 이름
+run-name: ${{ github.actor }} + 's test # workflow 이름
 on:
   push:
 
@@ -43,7 +43,7 @@ jobs:
       - name: check version
         run: bats -v
       - name: hello-world
-        uses: .github/actions/hello-world
+        uses: ./.github/actions/action
 # inputs and outputs
 # input에는 file-path 필요
 # default 파일명 설정 가능. description 추가 가능.
