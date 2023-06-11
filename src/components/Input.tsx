@@ -1,19 +1,22 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { phoneNumberFormat } from "../utils/format";
+import { useAppSelector, useAppDispatch } from "../redux/hooks";
+import { input, backspace } from "../redux/phoneSlice";
 import "./input.css";
 
 function Input() {
-  const [number, setNumber] = useState<string>("010");
+  const number = useAppSelector((state) => state.phone.value);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const handleClickButton = (event: { target: EventTarget }) => {
-    if ("value" in event.target && event.target.value === "backspace") {
-      setNumber(number.slice(0, Math.max(0, number.length - 1)));
-      return;
+    if ("value" in event.target) {
+      if (event.target.value === "backspace") {
+        dispatch(backspace());
+        return;
+      }
+      if (number.length === 11) return;
+      dispatch(input(event.target.value as string));
     }
-    if (number.length === 11) return;
-    if ("value" in event.target)
-      setNumber(number.concat(event.target.value as string));
   };
   return (
     <>
