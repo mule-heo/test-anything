@@ -1,0 +1,2 @@
+jobs:
+  run: echo "hello world"

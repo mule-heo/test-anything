@@ -1,13 +1,85 @@
 name: learn-github-actions # Actions 탭에 노출될 이름
-run-name: ${{ github.actor }} is learning GitHub Actions # workflow 이름
-on: [push]
+run-name: ${{ github.actor }}"'s test" # workflow 이름
+on:
+  push:
+
+# paths or paths-ignore:
+# 특정 경로를 포함한 경우에 한정하거나 특정 경로를 무시하도록 할 수 있음
+# 경로 앞에 ! 붙이면 네거티브 패턴으로 작용
+
+# **** on schedule **** 특정 시각마다 실행되도록 할 수 있음
+# on:
+#   schedule:
+#     # * is a special character in YAML so you have to quote this string / * => universal(전체)
+#     # cron syntax: "분 시 일 월 요일(0~6)" 0은 일요일
+#     - cron:  '30 5,17 * * *'
+
+# on:
+#   label:
+#     types:
+#       - created
+
+# on:
+#   issues:
+#     types:
+#       - opened
+#       - labeled
+# =   types: [opened, labeled]
+
+# on:
+#    pull_request:
+#      branches or branches-ignore
+
 jobs:
   check-bats-version: # 이 이름으로 job 정의
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3 # 다른 브랜치로 checkout
-      - uses: actions/setup-node@v3 # node 환경 구성
+      - uses: actions/setup-node@v3 # node 환경 구성  @version tags or @SHAs or @branches(to run on)
         with:
           node-version: "14"
-      - run: npm install -g bats # run : 터미널 명령어
-      - run: bats -v
+      - name: install bats
+        run: npm install -g bats # run : 터미널 명령어
+      - name: check version
+        run: bats -v
+      - name: hello-world
+        uses: ./.github/actions/hello-world
+# inputs and outputs
+# input에는 file-path 필요
+# default 파일명 설정 가능. description 추가 가능.
+
+# output results-file 필요
+# description 추가 가능.
+
+# env - 사용자 정의 변수 설정
+# steps 하위에 name, run, shell 등 설정 가능
+
+# with: token:
+# secrets
+
+# data 다른 steps 간에 사용하려면 artifact 활용
+# uses: actions/upload-artifact@v3
+# uses: actions/download-artifact
+# 의존성 있는 작업의 경우 needs 속성 사용하여 대기하도록 함
+
+# workflow_run - 다른 workflow 실행시 호출
+
+# jobs.<job_id>.permissions
+# permissions:
+#   actions: read|write|none
+#   checks: read|write|none
+#   contents: read|write|none
+#   deployments: read|write|none
+#   id-token: read|write|none
+#   issues: read|write|none
+#   discussions: read|write|none
+#   packages: read|write|none
+#   pages: read|write|none
+#   pull-requests: read|write|none
+#   repository-projects: read|write|none
+#   security-events: read|write|none
+#   statuses: read|write|none
+
+# if 조건문
+# runs-on - label과 결합하여 특정 시퀀스에 대해서만 해당 환경에서 작동하도록 할 수 있음
+# runs-on: group: 사용하여 지정 가능
