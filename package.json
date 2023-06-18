@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "name": "test-anything",
   "version": "0.1.0",
   "private": true,
@@ -54,16 +53,4 @@
     "prettier": "^2.8.8",
     "typescript": "^4.9.5"
   }
-=======
-  "name": "jira-test",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
->>>>>>> e97ed90 (TEST-1 initialize project)
 }
